@@ -88,7 +88,8 @@ app.post('/login', async (req, res) => {
     try {
       const user = await User.findOne({ username, password });
   
-      if (!user) return res.status(401).json({ message: 'Invalid credentials' });
+      //if (!user) return res.status(401).json({ message: 'Invalid credentials' }); // original
+      if (!user) return res.redirect(`/index?username=${newUser.username}`); // task 6
   
       const token = jwt.sign({ userId: user._id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
       req.session.token = token;
