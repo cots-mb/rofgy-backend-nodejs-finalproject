@@ -65,7 +65,8 @@ app.post('/register', async (req, res) => {
     try {
       const existingUser = await User.findOne({ $or: [{ username }, { email }] });
   
-      if (existingUser) return res.status(400).json({ message: 'User already exists' });
+    //  if (existingUser) return res.status(400).json({ message: 'User already exists' }); // original
+      if (existingUser) return res.redirect(`/index?username=${newUser.username}`); //task 5
   
       const newUser = new User({ username, email, password });
       await newUser.save();
